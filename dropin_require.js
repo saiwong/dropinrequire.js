@@ -1,24 +1,21 @@
 var dropinRequire	= function(moduleId){
+	if( moduleId in dropinRequire.cache )	return dropinRequire.cache[moduleId]
 	var req	= new XMLHttpRequest();
 	req.open('GET', moduleId, false);
 	req.send(null);
-// TODO here there is a bug
-// - the result MUST be cached
-// - this is not perf, this is spec
-	if(req.status != 200)	throw new Error()
-	var txt	= dropinRequire.modPrefix + req.responseText + dropinRequire.modSuffix;
-	return eval(txt);
+	if(req.status != 200)	throw new Error(req)
+	var txt	= dropinRequire.prefix + req.responseText + dropinRequire.suffix;
+	return dropinRequire.cache[moduleId] = eval(txt);
 }
-//dropinRequire.modPrefix	= document.getElementById('prefix').textContent;
-//dropinRequire.modSuffix	= document.getElementById('suffix').textContent;
-dropinRequire.modPrefix	= "(function(){"+
+dropinRequire.cache	= {};
+dropinRequire.prefix	= "(function(){"+
 			"	var _module	= { exports: {} };"+
 			"	var _require	= function(moduleId){"+
 			"		return dropinRequire(moduleId)"+
 			"	};"+
 			"	(function(module, exports, require){";
 			// Here goes the javascript with commonjs modules
-dropinRequire.modSuffix	= "	})(_module, _module.exports, _require);"+
+dropinRequire.suffix	= "	})(_module, _module.exports, _require);"+
 			"	return _module.exports;"+
 			"})();";
 
