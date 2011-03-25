@@ -15,7 +15,13 @@
     >dropinrequire.js</a
     > is a drop-in replacement for commonjs <a href="http://www.commonjs.org/specs/modules/1.0/"
     >module</a
-    > in a browser. No server to run, No preprocessing of javascript files. If you are using <a href="http://nodejs.org"
+    > in a browser. No server to run, No preprocessing of javascript files. It is very simple it needs only <a href="https://github.com/jeromeetienne/dropinrequire.js/blob/master/dropin_require.js#L1-20"
+    >20-lines</a
+    > of js.</p
+  ><p
+  >It is designed for rapid prototyping, not for <em
+    >production</em
+    > (see <a href="#performance">details</a>). If you are in a rush, are using <a href="http://nodejs.org"
     >node.js</a
     > and are willing to share code with your browser without hassle, <a href="http://jeromeetienne.github.com/dropinrequire.js"
     >dropinrequire.js</a
@@ -53,6 +59,20 @@
 &lt;/script&gt;
 </code
       ></pre
+    ></div
+  ><div id="performance-vs-compatibility"
+  ><h2
+    >Performance vs Compatibility</h2
+    ><a name="performance"></a><p
+    ><a href="http://jeromeetienne.github.com/dropinrequire.js"
+      >dropinrequire.js</a
+      > goals were to be short and compatible. The compatibility part is the painfull one. Nodejs <a href="http://nodejs.org/docs/v0.4.3/api/globals.html#require"
+      >require</a
+      > is synchronous, so when you require you dont do anything else. To ensure compatibility, dropinrequire must be synchronous too. But It is ok for nodejs because reading files from local disks is fast, much faster than network transfert. The same doesnt apply in the browser. Because of compatibility, dropinrequire.js relies on synchronous xhr which have signficant performance issues. maybe one day i will incude a cache in LocalStorage. For now, i recommend <a href="https://github.com/weepy/brequire"
+      >brequire</a
+      > for production. It does require you to preprocess your js files on the server, but it is in the same spirit than <a href="http://jeromeetienne.github.com/dropinrequire.js"
+      >dropinrequire.js</a
+      >, small and clean.</p
     ></div
   ><div id="about"
   ><h2
@@ -158,9 +178,16 @@ img {
 
 </style>
 <!-- follow me on twitter -->
-<a href="http://www.twitter.com/jerome_etienne"><img style="position: absolute; top: 10px; right: 10px; border: 0;" src="http://twitter-badges.s3.amazonaws.com/follow_me-c.png" alt="Follow jerome_etienne on Twitter"/></a>
+<a href="http://www.twitter.com/jerome_etienne">
+	<img style="position: absolute; bottom: 10px; right: 10px; border: 0;" src="http://twitter-badges.s3.amazonaws.com/follow_me-c.png" alt="Follow jerome_etienne on Twitter"/>
+</a>
 <!-- github ribbon -->
 <a href="https://github.com/jeromeetienne/dropinrequire.js"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://assets0.github.com/img/ce742187c818c67d98af16f96ed21c00160c234a?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_left_gray_6d6d6d.png&path=" alt="Fork me on GitHub"></a>
+<!-- twitter share + facebook like -->
+<div style="position: absolute; top: 10px; right: 10px; border: 0;">
+	
+	<a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="jerome_etienne">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
 </body>
 </html>
 
